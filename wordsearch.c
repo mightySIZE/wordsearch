@@ -7,6 +7,7 @@
 void printResult(int** arr);
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
+void initilizeMatrix(int** arr);
 int bSize;
 
 // Main function, DO NOT MODIFY 	
@@ -82,6 +83,14 @@ void printResult(int** arr) {
         printf("\n");
         for (int j=0; j<bSize; j++) {
             printf("%d ", arr[i][j]);
+        }
+    }
+}
+
+void initilizeMatrix(int** arr) {
+    for (int i=0; i<bSize; i++) {
+        for (int j=0; j<bSize; j++) {
+            arr[i][j] = 0;
         }
     }
 }
