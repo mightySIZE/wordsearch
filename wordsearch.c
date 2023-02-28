@@ -4,8 +4,10 @@
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
+void printResult(int** arr);
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
+void initilizeMatrix(int** arr);
 int bSize;
 
 // Main function, DO NOT MODIFY 	
@@ -59,7 +61,12 @@ void printPuzzle(char** arr) {
     // It must produce the output in the SAME format as the samples 
     // in the instructions.
     // Your implementation here...
-
+    for (int i=0; i<bSize; i++) {
+        printf("\n");
+        for (int j=0; j<bSize; j++) {
+            printf("%c ", arr[i][j]);
+        }
+    }
 }
 
 void searchPuzzle(char** arr, char* word) {
@@ -69,4 +76,21 @@ void searchPuzzle(char** arr, char* word) {
     // different message as shown in the sample runs.
     // Your implementation here...
 
+}
+
+void printResult(int** arr) {
+    for (int i=0; i<bSize; i++) {
+        printf("\n");
+        for (int j=0; j<bSize; j++) {
+            printf("%d ", arr[i][j]);
+        }
+    }
+}
+
+void initilizeMatrix(int** arr) {
+    for (int i=0; i<bSize; i++) {
+        for (int j=0; j<bSize; j++) {
+            arr[i][j] = 0;
+        }
+    }
 }
