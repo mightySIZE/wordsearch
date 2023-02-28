@@ -4,6 +4,7 @@
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
+void printResult(int** arr);
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
 int bSize;
@@ -74,4 +75,13 @@ void searchPuzzle(char** arr, char* word) {
     // different message as shown in the sample runs.
     // Your implementation here...
 
+}
+
+void printResult(int** arr) {
+    for (int i=0; i<bSize; i++) {
+        printf("\n");
+        for (int j=0; j<bSize; j++) {
+            printf("%d ", arr[i][j]);
+        }
+    }
 }
