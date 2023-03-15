@@ -75,17 +75,20 @@ void searchPuzzle(char** arr, char* word) {
 
     //initialize a matrix to print out the path of the word
     int **path = (int**)malloc(bSize * sizeof(int*));
-    for(int i = 0; i < bSize; i++){
-        path[i] = (int*)malloc(bSize * sizeof(int));
-        for (int j=0; j<bSize; j++) {
-            path[i][j] = false;
+    for(int row = 0; row < bSize; row++) {
+        path[row] = (int*)malloc(bSize * sizeof(int));
+        for (int col = 0; col < bSize; col++) {
+            path[row][col] = 0;
         }
     }
 
     //start searching from every cell in the matrix
     for (int row = 0; row < bSize; row++) {
         for (int col = 0; col < bSize; col++) {
+            //check if the letter in the cell matches the first letter of the word with depthFirstSearch() function
+            //if the letter matches. then we will recursively search in all directions for the rest of the word with depthFirstSearch() function
             if (depthFirstSearch(arr, word, row, col, 0, path)) {
+                //if the word is found, print the path and exit the function
                 printPath(path);
                 return;
             }
@@ -94,7 +97,6 @@ void searchPuzzle(char** arr, char* word) {
     
     printf("\nWord not found!");
     return;
-
 }
 
 bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path) {
@@ -113,10 +115,8 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
         return false;
     }
     
-    //if we get to this point, then cell element matches our letter. we then mark the current cell as visited and update the
-    //path value to the corresponding
+    //if we get to this point, then cell element matches our letter. we then update the path value to the corresponding index
     path[row][col] = concatenateDigits(index + 1, path[row][col]);
-    //printPath(path);
     
     //we now will recursively search in all directions, this is why we picked depth first search
     bool found = depthFirstSearch(matrix, word, row-1, col, index+1, path) ||   // search Up
@@ -148,7 +148,9 @@ void printPath(int** path) {
 }
 
 void upCase(char *word) {
+    //iterate through the word and convert all lowercase letters to uppercase
     for (int i=0; i<strlen(word); i++) {
+        //check if the current character is a lowercase letter
         if (word[i] >= 'a' && word[i] <= 'z') {
             word[i] -= 32;
         }
