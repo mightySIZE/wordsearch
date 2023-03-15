@@ -11,7 +11,7 @@ void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
 void upCase(char *word);
 int concatenateDigits(int num1, int num2);
-bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, bool** visited, int** path);
+bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path);
 void printPath(int **path);
 int bSize;
 
@@ -82,15 +82,7 @@ void searchPuzzle(char** arr, char* word) {
     // Your implementation here...
 
     upCase(word);
-    //initialize a bool matrix to check if we visited a cell or not
-    bool **visited = (bool**)malloc(bSize * sizeof(bool*));
-    for(int i = 0; i < bSize; i++){
-        visited[i] = (bool*)malloc(bSize * sizeof(bool));
-        for (int j=0; j<bSize; j++) {
-            visited[i][j] = false;
-        }
-    }
-    
+
     //initialize a matrix to print out the path of the word
     int **path = (int**)malloc(bSize * sizeof(int*));
     for(int i = 0; i < bSize; i++){
@@ -103,7 +95,7 @@ void searchPuzzle(char** arr, char* word) {
     //start searching from every cell in the matrix
     for (int row = 0; row < bSize; row++) {
         for (int col = 0; col < bSize; col++) {
-            if (depthFirstSearch(arr, word, row, col, 0, visited, path)) {
+            if (depthFirstSearch(arr, word, row, col, 0, path)) {
                 printPath(path);
                 return;
             }
@@ -115,7 +107,7 @@ void searchPuzzle(char** arr, char* word) {
 
 }
 
-bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, bool** visited, int** path)
+bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path)
 {
     //check if we found the entire word. if found, exit function with success
     if (index == strlen(word)) {
@@ -134,22 +126,19 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, bo
     
     //if we get to this point, then cell element matches our letter. we then mark the current cell as visited and update the
     //path value to the corresponding
-    visited[row][col] = true;
     path[row][col] = concatenateDigits(index + 1, path[row][col]);
+    //printPath(path);
     
     //we now will recursively search in all directions, this is why we picked depth first search
-    bool found = depthFirstSearch(matrix, word, row-1, col, index+1, visited, path) ||   // search Up
-                 depthFirstSearch(matrix, word, row+1, col, index+1, visited, path) ||   // search Down
-                 depthFirstSearch(matrix, word, row, col-1, index+1, visited, path) ||   // search Left
-                 depthFirstSearch(matrix, word, row, col+1, index+1, visited, path) ||   // search Right
-                 depthFirstSearch(matrix, word, row-1, col-1, index+1, visited, path) || // search Up-Left
-                 depthFirstSearch(matrix, word, row-1, col+1, index+1, visited, path) || // search Up-Right
-                 depthFirstSearch(matrix, word, row+1, col-1, index+1, visited, path) || // search Down-Left
-                 depthFirstSearch(matrix, word, row+1, col+1, index+1, visited, path);   // search Down-Right
+    bool found = depthFirstSearch(matrix, word, row-1, col, index+1, path) ||   // search Up
+                 depthFirstSearch(matrix, word, row+1, col, index+1, path) ||   // search Down
+                 depthFirstSearch(matrix, word, row, col-1, index+1, path) ||   // search Left
+                 depthFirstSearch(matrix, word, row, col+1, index+1, path) ||   // search Right
+                 depthFirstSearch(matrix, word, row-1, col-1, index+1, path) || // search Up-Left
+                 depthFirstSearch(matrix, word, row-1, col+1, index+1, path) || // search Up-Right
+                 depthFirstSearch(matrix, word, row+1, col-1, index+1, path) || // search Down-Left
+                 depthFirstSearch(matrix, word, row+1, col+1, index+1, path);   // search Down-Right
     
-    // Unmark the current cell before returning
-    visited[row][col] = false; //this is for subsequent calls to the function. I can remove it safely if I don't plan on making subsequent calls
-                               //However, it is generally good practice to reset the visited flag for each cell after the recursive call is complete
     // If the entire word is not found, reset the path array
     if (found == false) {
         path[row][col] = 0;
