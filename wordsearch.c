@@ -9,14 +9,10 @@
 void printResult(int** arr);
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
-<<<<<<< Updated upstream
-void initilizeMatrix(int** arr);
-=======
 void upCase(char *word);
 int concatenateDigits(int num1, int num2);
 bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, bool** visited, int** path);
 void printPath(int **path);
->>>>>>> Stashed changes
 int bSize;
 
 // Main function, DO NOT MODIFY 	
@@ -85,15 +81,6 @@ void searchPuzzle(char** arr, char* word) {
     // different message as shown in the sample runs.
     // Your implementation here...
 
-<<<<<<< Updated upstream
-}
-
-void printResult(int** arr) {
-    for (int i=0; i<bSize; i++) {
-        printf("\n");
-        for (int j=0; j<bSize; j++) {
-            printf("%d ", arr[i][j]);
-=======
     upCase(word);
     //initialize a bool matrix to check if we visited a cell or not
     bool **visited = (bool**)malloc(bSize * sizeof(bool*));
@@ -136,7 +123,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, bo
     }
     
     //check if we are out of bounds (attempting to access elements outside the array can result in crashes and weird behavior)
-    if (row < 0 || row >= bSize || col < 0 || col >= bSize) {
+    if (row < 0 || row > bSize || col < 0 || col > bSize) {
         return false;
     }
     
@@ -151,14 +138,14 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, bo
     path[row][col] = concatenateDigits(index + 1, path[row][col]);
     
     //we now will recursively search in all directions, this is why we picked depth first search
-    bool found = depthFirstSearch(matrix, word, row-1, col, index+1, visited, path) ||   // Up
-                 depthFirstSearch(matrix, word, row+1, col, index+1, visited, path) ||   // Down
-                 depthFirstSearch(matrix, word, row, col-1, index+1, visited, path) ||   // Left
-                 depthFirstSearch(matrix, word, row, col+1, index+1, visited, path) ||   // Right
-                 depthFirstSearch(matrix, word, row-1, col-1, index+1, visited, path) || // Up-Left
-                 depthFirstSearch(matrix, word, row-1, col+1, index+1, visited, path) || // Up-Right
-                 depthFirstSearch(matrix, word, row+1, col-1, index+1, visited, path) || // Down-Left
-                 depthFirstSearch(matrix, word, row+1, col+1, index+1, visited, path);   // Down-Right
+    bool found = depthFirstSearch(matrix, word, row-1, col, index+1, visited, path) ||   // search Up
+                 depthFirstSearch(matrix, word, row+1, col, index+1, visited, path) ||   // search Down
+                 depthFirstSearch(matrix, word, row, col-1, index+1, visited, path) ||   // search Left
+                 depthFirstSearch(matrix, word, row, col+1, index+1, visited, path) ||   // search Right
+                 depthFirstSearch(matrix, word, row-1, col-1, index+1, visited, path) || // search Up-Left
+                 depthFirstSearch(matrix, word, row-1, col+1, index+1, visited, path) || // search Up-Right
+                 depthFirstSearch(matrix, word, row+1, col-1, index+1, visited, path) || // search Down-Left
+                 depthFirstSearch(matrix, word, row+1, col+1, index+1, visited, path);   // search Down-Right
     
     // Unmark the current cell before returning
     visited[row][col] = false; //this is for subsequent calls to the function. I can remove it safely if I don't plan on making subsequent calls
@@ -177,20 +164,11 @@ void printPath(int** path) {
     for (int i = 0; i < bSize; i++) {
         for (int j = 0; j < bSize; j++) {
             printf("%-8d", path[i][j]);
->>>>>>> Stashed changes
         }
         printf("\n");
     }
 }
 
-<<<<<<< Updated upstream
-void initilizeMatrix(int** arr) {
-    for (int i=0; i<bSize; i++) {
-        for (int j=0; j<bSize; j++) {
-            arr[i][j] = 0;
-        }
-    }
-=======
 void upCase(char *word) {
     for (int i=0; i<strlen(word); i++) {
         if (word[i] >= 'a' && word[i] <= 'z') {
@@ -212,5 +190,4 @@ int concatenateDigits(int num1, int num2) {
     int path = num1 * pow(10, digits) + num2;
 
     return path;
->>>>>>> Stashed changes
 }
