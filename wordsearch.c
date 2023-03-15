@@ -6,13 +6,12 @@
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
-void printResult(int** arr);
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
-void upCase(char *word);
-int concatenateDigits(int num1, int num2);
 bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path);
 void printPath(int **path);
+void upCase(char *word);
+int concatenateDigits(int num1, int num2);
 int bSize;
 
 // Main function, DO NOT MODIFY 	
@@ -62,10 +61,6 @@ int main(int argc, char **argv) {
 }
 
 void printPuzzle(char** arr) {
-	// This function will print out the complete puzzle grid (arr). 
-    // It must produce the output in the SAME format as the samples 
-    // in the instructions.
-    // Your implementation here...
     for (int i=0; i<bSize; i++) {
         for (int j=0; j<bSize; j++) {
             printf("%c ", arr[i][j]);
@@ -75,12 +70,7 @@ void printPuzzle(char** arr) {
 }
 
 void searchPuzzle(char** arr, char* word) {
-    // This function checks if arr contains the search word. If the 
-    // word appears in arr, it will print out a message and the path 
-    // as shown in the sample runs. If not found, it will print a 
-    // different message as shown in the sample runs.
-    // Your implementation here...
-
+    //capitilize all letters in the word
     upCase(word);
 
     //initialize a matrix to print out the path of the word
@@ -107,8 +97,7 @@ void searchPuzzle(char** arr, char* word) {
 
 }
 
-bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path)
-{
+bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path) {
     //check if we found the entire word. if found, exit function with success
     if (index == strlen(word)) {
         return true;
