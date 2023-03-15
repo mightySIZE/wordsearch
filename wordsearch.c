@@ -139,7 +139,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
                  depthFirstSearch(matrix, word, row+1, col-1, index+1, path) || // search Down-Left
                  depthFirstSearch(matrix, word, row+1, col+1, index+1, path);   // search Down-Right
     
-    // If the entire word is not found, reset the path array
+    //if the entire word is not found, reset the path array
     if (found == false) {
         path[row][col] = 0;
     }
