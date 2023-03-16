@@ -90,14 +90,14 @@ void searchPuzzle(char** arr, char* word) {
         for (int col = 0; col < bSize; col++) {
             //check if the letter in the cell matches the first letter of the word with depthFirstSearch() function
             //if the letter matches. then we will recursively search in all directions for the rest of the word with depthFirstSearch() function
-            if (depthFirstSearch(arr, word, row, col, 0, path)) {
+            if(depthFirstSearch(arr, word, row, col, 0, path)) {
                 //if the word is found, print the path and exit the function
                 printPath(path);
                 return;
-            }
+            }     
         }
     }
-    
+
     printf("\nWord not found!");
     return;
 }
@@ -130,7 +130,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
                  depthFirstSearch(matrix, word, row+1, col+1, index+1, path);   // search Down-Right
     
     //if the entire word is found, update the path matrix with the index of the current letter in the word
-    if (check == true) {
+    if (check == true) { 
         path[row][col] = concatenateDigits(path[row][col], index + 1);
     }
 
@@ -172,43 +172,3 @@ int concatenateDigits(int num1, int num2) {
 
     return path;
 }
-/* 
-given this depthFirstSearch function:
-bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path) {
-    //check if we found the entire word. if found, exit function with success
-    if (index == strlen(word)) {
-        check = true;
-    }
-    
-    //check if we are out of bounds (attempting to access elements outside the array can result in crashes and weird behavior)
-    if (row < 0 || row > bSize || col < 0 || col > bSize) {
-        return false;
-    }
-    
-    //check if the current cell in the matrix matches the letter(word[index]) we are searching for
-    if (matrix[row][col] != word[index]) {
-        return false;
-    }
-    
-    //if we get to this point, then cell element matches our letter. we then update the path value to the corresponding index
-    //path[row][col] = concatenateDigits(index + 1, path[row][col]);
-    
-    //we now will recursively search in all directions, this is why we picked depth first search
-    bool found = depthFirstSearch(matrix, word, row-1, col, index+1, path) ||   // search Up
-                 depthFirstSearch(matrix, word, row+1, col, index+1, path) ||   // search Down
-                 depthFirstSearch(matrix, word, row, col-1, index+1, path) ||   // search Left
-                 depthFirstSearch(matrix, word, row, col+1, index+1, path) ||   // search Right
-                 depthFirstSearch(matrix, word, row-1, col-1, index+1, path) || // search Up-Left
-                 depthFirstSearch(matrix, word, row-1, col+1, index+1, path) || // search Up-Right
-                 depthFirstSearch(matrix, word, row+1, col-1, index+1, path) || // search Down-Left
-                 depthFirstSearch(matrix, word, row+1, col+1, index+1, path);   // search Down-Right
-    
-    //if the entire word is not found, reset the path array
-    if (check == true) {
-        path[row][col] = index;
-    }
-
-    return found;
-}
----
-modify it so that it  */
