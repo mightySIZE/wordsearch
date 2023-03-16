@@ -14,6 +14,7 @@ void upCase(char *word);
 int concatenateDigits(int num1, int num2);
 int bSize;
 bool check;
+//Project was done with collaboration with my partner, Singh Deep
 
 // Main function, DO NOT MODIFY 	
 int main(int argc, char **argv) {
