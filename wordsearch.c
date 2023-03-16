@@ -62,9 +62,9 @@ int main(int argc, char **argv) {
 }
 
 void printPuzzle(char** arr) {
-    for (int i=0; i<bSize; i++) {
-        for (int j=0; j<bSize; j++) {
-            printf("%c ", arr[i][j]);
+    for (int row = 0; row < bSize; row++) {
+        for (int col = 0; col < bSize; col++) {
+            printf("%c ", *(*(arr + row) + col));
         }
         printf("\n");
     }
@@ -79,9 +79,9 @@ void searchPuzzle(char** arr, char* word) {
     //initialize a matrix to print out the path of the word
     int **path = (int**)malloc(bSize * sizeof(int*));
     for(int row = 0; row < bSize; row++) {
-        path[row] = (int*)malloc(bSize * sizeof(int));
+        *(path + row) = (int*)malloc(bSize * sizeof(int));
         for (int col = 0; col < bSize; col++) {
-            path[row][col] = 0;
+            *(*(path + row) + col) = 0;
         }
     }
 
@@ -131,7 +131,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
     
     //if the entire word is found, update the path matrix with the index of the current letter in the word
     if (check == true) { 
-        path[row][col] = concatenateDigits(path[row][col], index + 1);
+        *(*(path + row) + col) = concatenateDigits(*(*(path + row) + col), index + 1);
     }
 
     return found;
@@ -140,9 +140,9 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
 void printPath(int** path) {
     printf("\nWord found!");
     printf("\nPrinting the search path:\n");
-    for (int i = 0; i < bSize; i++) {
-        for (int j = 0; j < bSize; j++) {
-            printf("%-8d", path[i][j]);
+    for (int row = 0; row < bSize; row++) {
+        for (int col = 0; col < bSize; col++) {
+            printf("%-8d", *(*(path + row) + col));
         }
         printf("\n");
     }
@@ -152,8 +152,8 @@ void upCase(char *word) {
     //iterate through the word and convert all lowercase letters to uppercase
     for (int i=0; i<strlen(word); i++) {
         //check if the current character is a lowercase letter
-        if (word[i] >= 'a' && word[i] <= 'z') {
-            word[i] -= 32;
+        if (*(word + i) >= 'a' && *(word + i) <= 'z') {
+            *(word + i) -= 32;
         }
     }
 }
