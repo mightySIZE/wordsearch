@@ -111,7 +111,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
     }
     
     //check if we are out of bounds (attempting to access elements outside the array can result in crashes and weird behavior)
-    if (row < 0 || row > bSize || col < 0 || col > bSize) {
+    if (row < 0 || row > bSize-1 || col < 0 || col > bSize-1) {
         return false;
     }
     
