@@ -91,16 +91,18 @@ void searchPuzzle(char** arr, char* word) {
         for (int col = 0; col < bSize; col++) {
             //check if the letter in the cell matches the first letter of the word with depthFirstSearch() function
             //if the letter matches. then we will recursively search in all directions for the rest of the word with depthFirstSearch() function
-            if(depthFirstSearch(arr, word, row, col, 0, path)) {
-                //if the word is found, print the path and exit the function
-                printPath(path);
-                return;
-            }     
+            depthFirstSearch(arr, word, row, col, 0, path);
         }
     }
-
-    printf("\nWord not found!");
-    return;
+    
+    if (check) {
+        printPath(path);
+        return;
+    }
+    else {
+        printf("\nWord not found!");
+        return;
+    }
 }
 
 bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path) {
