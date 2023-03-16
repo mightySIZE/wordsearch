@@ -116,7 +116,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
     }
     
     //check if the current cell in the matrix matches the letter(word[index]) we are searching for
-    if (matrix[row][col] != word[index]) {
+    if (*(*(matrix + row) + col) != *(word + index)) {
         return false;
     }
     
@@ -129,7 +129,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
                  depthFirstSearch(matrix, word, row-1, col+1, index+1, path) || // search Up-Right
                  depthFirstSearch(matrix, word, row+1, col-1, index+1, path) || // search Down-Left
                  depthFirstSearch(matrix, word, row+1, col+1, index+1, path);   // search Down-Right
-    
+
     //if the entire word is found, update the path matrix with the index of the current letter in the word
     if (check == true) { 
         *(*(path + row) + col) = concatenateDigits(*(*(path + row) + col), index + 1);
