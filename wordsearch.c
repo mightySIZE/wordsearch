@@ -103,7 +103,7 @@ void searchPuzzle(char** arr, char* word) {
 }
 
 bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, int** path) {
-    //check if we found the entire word. if found, exit function with success
+    //check if we found the entire word, initialize check to true
     if (index == strlen(word)) {
         check = true;
         return true;
@@ -119,9 +119,6 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
         return false;
     }
     
-    //if we get to this point, then cell element matches our letter. we then update the path value to the corresponding index
-    //path[row][col] = concatenateDigits(index + 1, path[row][col]);
-    
     //we now will recursively search in all directions, this is why we picked depth first search
     bool found = depthFirstSearch(matrix, word, row-1, col, index+1, path) ||   // search Up
                  depthFirstSearch(matrix, word, row+1, col, index+1, path) ||   // search Down
@@ -132,7 +129,7 @@ bool depthFirstSearch(char** matrix, char* word, int row, int col, int index, in
                  depthFirstSearch(matrix, word, row+1, col-1, index+1, path) || // search Down-Left
                  depthFirstSearch(matrix, word, row+1, col+1, index+1, path);   // search Down-Right
     
-    //if the entire word is not found, reset the path array
+    //if the entire word is found, update the path matrix with the index of the current letter in the word
     if (check == true) {
         path[row][col] = concatenateDigits(path[row][col], index + 1);
     }
